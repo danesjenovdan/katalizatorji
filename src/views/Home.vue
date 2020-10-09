@@ -1,16 +1,20 @@
 <template>
   <div class="home">
     <img src="../assets/logo.png">
-    <h1>Nagovor title</h1>
+    <h1>Dragi igralec_ka,</h1>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-      ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
-      viverra maecenas accumsan lacus vel facilisis.
+      Organizacije civilne družbe preko zagovorniških dejavnosti spreminjajo družbo na bolje in s
+      svojimi storitvami vskočijo tam, kjer državnim institucijam zmanjka kapacitet ali pa volje za
+      reševanje problematike. Trenutno se spopadajo z obsežnimi kritikami splošne publike, večkrat
+      pa celo s strani vlade in nekaterih medijev. Velikokrat se celoten sektor organizacij civilne
+      družbe označuje za zajedalca državnega proračuna, posamezne organizacije pa tudi za zaviralke
+      “razvoja”.
       <br />
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-      vel facilisis.
+      <br />
+      Vabljen_a si, da s pomočjo naše kratke interaktivne igrice malo bolje spoznaš delovanje
+      organizacij civilne družbe in njihovo vlogo pri razvoju družbe.
     </p>
-    <router-link to="/game" class="button">ZAČNI IGRO</router-link>
+    <router-link to="/game" class="button">ZAČNI IGRO!</router-link>
   </div>
 </template>
 

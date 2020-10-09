@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img src="../assets/logo.png">
-    <h1>Igre je konec</h1>
+    <h1>Igre je konec!</h1>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-      ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
-      viverra maecenas accumsan lacus vel facilisis.
+      Košara organizacij civilne družbe je zapolnjena. Organizacijam civilne družbe primanjkuje
+      sredstev in kadrovske moči za vse potrebe, ki jih naslavljajo. Trenutno žal zato ne morejo
+      zagotoviti vsega, kar naša družba potrebuje.
       <br />
       <br />
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-      vel facilisis.
+      Vse to se lahko spremeni tudi s tvoji podporo! Sprememba je edina konstanta in tudi ti lahko
+      igraš vlogo v spreminjanju našega političnega, ekonomskega in socialnega sistema.
     </p>
     <router-link to="/game" class="button">Poskusi znova</router-link>
-    <router-link to="/support" class="button support">PODPRI CIVILNO DRUŽBO</router-link>
+    <router-link to="/support" class="button support">Podpri sektor civilne družbe!</router-link>
   </div>
 </template>
 

@@ -129,6 +129,11 @@ export default class Game extends Vue {
     this.gameLoop = window.setInterval(() => {
       this.moveCircles();
     }, 500);
+
+    // // enable touch controls
+    // document.addEventListener('DOMContentLoaded', () => {
+    //   this.$el.addEventListener('click', this.chooseSide);
+    // });
   }
 
   get points() {
@@ -146,6 +151,18 @@ export default class Game extends Vue {
   get businessWidth() {
     return (this.businessPoints / 10) * 100;
   }
+
+  // chooseSide(event) {
+  //   const { clientX, clientY } = event;
+  //   const { clientHeight, clientWidth } = this.$el;
+  //   if (clientY > (clientHeight / 2)) {
+  //     console.log('bottom');
+  //   } else if (clientX < (clientWidth / 2)) {
+  //     console.log('left');
+  //   } else {
+  //     console.log('right');
+  //   }
+  // }
 
   restartGame() {
     window.clearInterval(this.gameLoop);

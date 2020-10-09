@@ -24,23 +24,24 @@ body {
     font-style: italic;
     text-transform: uppercase;
     font-size: 48px;
-    margin-top: 70px;
-    margin-bottom: 80px;
+    margin-top: 40px;
+    margin-bottom: 40px;
   }
 
   p {
     color: #ffffff;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 400;
     line-height: 42px;
 
-    max-width: 700px;
+    max-width: 800px;
     margin: auto;
     margin-bottom: 80px;
   }
 
   button,
-  a.button {
+  a.button,
+  div.button {
     min-width: 358px;
     height: 75px;
     border-radius: 38px;
@@ -76,6 +77,14 @@ body {
       position: relative;
       top: 3px;
       left: 20px;
+
+      transition: transform 0.4s ease-out;
+    }
+
+    &:hover {
+      &::after {
+        transform: rotate(360deg);
+      }
     }
 
     &.support {
