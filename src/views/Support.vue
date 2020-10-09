@@ -1,27 +1,24 @@
 <template>
   <div class="home">
     <img src="../assets/logo.png">
-    <h1>Nagovor title</h1>
+    <h1>Igre je konec</h1>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
       ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
       viverra maecenas accumsan lacus vel facilisis.
       <br />
+      <br />
       Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
       vel facilisis.
     </p>
-    <router-link to="/game" class="button">ZAČNI IGRO</router-link>
+    <router-link to="/" class="button share">DELI S PRIJATELJI</router-link>
+    <router-link to="/" class="button support">NAMENI DOHODNINO</router-link>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
-export default class Home extends Vue {}
+@Component
+export default class Support extends Vue {}
 </script>

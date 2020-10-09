@@ -1,31 +1,109 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+ @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,600;0,800;1,900&display=swap');
+
+body {
+  background-color: #000000;
+  padding: 0;
+  margin: 0;
 }
+#app {
+  font-family: Raleway;
+  text-align: center;
+  color: #ffffff;
 
-#nav {
-  padding: 30px;
+  padding-top: 20px;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  h1 {
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    font-size: 48px;
+    margin-top: 70px;
+    margin-bottom: 80px;
+  }
 
-    &.router-link-exact-active {
-      color: #42b983;
+  p {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 42px;
+
+    max-width: 700px;
+    margin: auto;
+    margin-bottom: 80px;
+  }
+
+  button,
+  a.button {
+    min-width: 358px;
+    height: 75px;
+    border-radius: 38px;
+    background-color: #f5f1e4;
+
+    color: #000000;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 75px;
+    text-align: center;
+
+    cursor: pointer;
+
+    text-decoration: none;
+    display: inline-block;
+
+    padding-left: 30px;
+    padding-right: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+
+    &::after {
+      content: '';
+      display: inline-block;
+
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 16px 0 16px 27px;
+      border-color: transparent transparent transparent #000000;
+
+      position: relative;
+      top: 3px;
+      left: 20px;
+    }
+
+    &.support {
+      background-color: #f5af22;
+
+      &::after {
+        border: none;
+        width: 35px;
+        height: 35px;
+        background-image: url('./assets/heart-full.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        top: 7px;
+      }
+    }
+
+    &.share {
+      &::after {
+        border: none;
+        width: 35px;
+        height: 35px;
+        background-image: url('./assets/share.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        top: 4px;
+      }
     }
   }
 }
