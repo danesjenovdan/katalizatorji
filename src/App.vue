@@ -23,16 +23,16 @@ body {
     font-weight: 900;
     font-style: italic;
     text-transform: uppercase;
-    font-size: 48px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    font-size: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 
   p {
     color: #ffffff;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
-    line-height: 42px;
+    line-height: 34px;
 
     max-width: 800px;
     margin: auto;
