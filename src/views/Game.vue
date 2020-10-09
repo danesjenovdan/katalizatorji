@@ -4,6 +4,10 @@
     @keyup.right="moveRight"
     @keyup.left="moveLeft"
   >
+    <div class="controls">
+      <textarea v-model="circleJSON"></textarea>
+      <button @click="restartGame">Update</button>
+    </div>
     <div class="nav">
       <div class="hearts">
         <div
@@ -97,6 +101,8 @@ export default class Game extends Vue {
 
   private gameLoop: any;
 
+  private circleJSON: string;
+
   constructor() {
     super();
     this.bucketsLeft = 0;
@@ -107,6 +113,7 @@ export default class Game extends Vue {
     this.statePoints = 0;
     this.civilSocietyPoints = 0;
     this.businessPoints = 0;
+    this.circleJSON = JSON.stringify(CIRCLES);
 
     // listen to key events
     window.addEventListener('keydown', (event) => {
@@ -138,6 +145,24 @@ export default class Game extends Vue {
 
   get businessWidth() {
     return (this.businessPoints / 10) * 100;
+  }
+
+  restartGame() {
+    window.clearInterval(this.gameLoop);
+
+    this.bucketsLeft = 0;
+    this.circles = JSON.parse(this.circleJSON);
+    this.circleTop = 0;
+    this.overlaps = [];
+    this.lives = 3;
+    this.statePoints = 0;
+    this.civilSocietyPoints = 0;
+    this.businessPoints = 0;
+
+    // main game loop
+    this.gameLoop = window.setInterval(() => {
+      this.moveCircles();
+    }, 500);
   }
 
   moveRight() {
@@ -235,6 +260,14 @@ export default class Game extends Vue {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+
+  .controls {
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    z-index: 2;
+    top: 100px;
+  }
 
   .nav {
     position: fixed;
