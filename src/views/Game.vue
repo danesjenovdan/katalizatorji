@@ -228,7 +228,7 @@ export default class Game extends Vue {
       const bucketIndex = parseInt(overlap.substring(0, 1), 10);
       const circleIndex = parseInt(overlap.substring(1, 2), 10);
       const newCircle = { ...this.circles[circleIndex] };
-      newCircle.top -= window.innerHeight;
+      newCircle.top -= 100000;
       console.log(bucketIndex, circleIndex, newCircle);
       this.circles.splice(circleIndex, 1, newCircle);
 

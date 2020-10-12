@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <img src="../assets/logo.png">
+    <h1></h1>
     <p>
       Za uspešno delovanje organizacij civilne družbe je pomembno, da niso odvisne ne od trga in ne
       od volje političnih strank. Le takšna avtonomija jim namreč lahko zagotovi, da se lahko
