@@ -249,17 +249,18 @@ export default class Game extends Vue {
 
           if (overlap) {
             this.overlaps.push(`${bucketIndex}${circleIndex}`);
-            this.resolveOverlaps();
+            // debugger;
           }
         });
       });
     }
+    this.resolveOverlaps();
   }
 
   resolveOverlaps() {
     this.overlaps.forEach((overlap, overlapIndex) => {
       const bucketIndex = parseInt(overlap.substring(0, 1), 10);
-      const circleIndex = parseInt(overlap.substring(1, 2), 10);
+      const circleIndex = parseInt(overlap.substring(1), 10);
       const newCircle = { ...this.circles[circleIndex] };
       newCircle.top -= 4320;
       this.getRandomCircle(newCircle);
@@ -287,24 +288,27 @@ export default class Game extends Vue {
           || (this.civilSocietyPoints === 10)
           || (this.businessPoints === 10)
         ) {
-          this.gameOver();
+          window.setTimeout(() => {
+            this.gameOver();
+          }, 1000);
         }
       } else {
+        console.log(newCircle);
         // shake the buckets
         this.shakeBuckets = true;
         this.pauseGame = true;
         window.setTimeout(() => {
           this.shakeBuckets = false;
           this.pauseGame = false;
+
+          // at -1 lives the game is over
+          if (this.lives === -1) {
+            this.gameOver();
+          }
         }, 2000);
 
         // lose life
         this.lives -= 1;
-
-        // at -1 lives the game is over
-        if (this.lives === -1) {
-          this.gameOver();
-        }
       }
     });
     this.overlaps = [];
