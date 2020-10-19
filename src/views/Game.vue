@@ -4,10 +4,10 @@
     @keyup.right="moveRight"
     @keyup.left="moveLeft"
   >
-    <div class="controls">
+    <!-- <div class="controls">
       <textarea v-model="circleJSON"></textarea>
       <button @click="restartGame">Update</button>
-    </div>
+    </div> -->
     <div class="nav">
       <div class="hearts">
         <div
@@ -25,11 +25,12 @@
       class="circle"
       :style="{
         top: `${circle.top + circleTop}px`,
-        left: `${circle.left}px`
+        left: `${circle.left + leftPadding}px`,
+        'background-image': `url('/problems/${circle.fileName}.png')`,
       }"
-    >{{ circle.name }}</div>
+    ></div>
     <div class="buckets" :style="{ left: `${bucketsLeft}px` }">
-      <div class="bucket" ref="bucket">
+      <div :class="['bucket', { shake: shakeBuckets }]">
         <div class="bucket-top">
           Država
         </div>
@@ -44,7 +45,7 @@
         </div>
       </div>
 
-      <div class="bucket">
+      <div :class="['bucket', { shake: shakeBuckets }]">
         <div class="bucket-top">
           Organizacije<br />civilne družbe
         </div>
@@ -59,7 +60,7 @@
         </div>
       </div>
 
-      <div class="bucket">
+      <div :class="['bucket', { shake: shakeBuckets }]">
         <div class="bucket-top">
           Podjetja
         </div>
@@ -103,10 +104,16 @@ export default class Game extends Vue {
 
   private circleJSON: string;
 
+  private shakeBuckets: boolean;
+
+  private pauseGame: boolean;
+
+  private leftPadding: number;
+
   constructor() {
     super();
-    this.bucketsLeft = 0;
-    this.circles = CIRCLES;
+    this.bucketsLeft = (window.innerWidth - 1000) / 2;
+    this.circles = this.generateGame();
     this.circleTop = 0;
     this.overlaps = [];
     this.lives = 3;
@@ -114,10 +121,12 @@ export default class Game extends Vue {
     this.civilSocietyPoints = 0;
     this.businessPoints = 0;
     this.circleJSON = JSON.stringify(CIRCLES);
+    this.shakeBuckets = false;
+    this.pauseGame = false;
+    this.leftPadding = (window.innerWidth - 1000) / 2;
 
     // listen to key events
     window.addEventListener('keydown', (event) => {
-      console.log(event);
       if (event.keyCode === 37) {
         this.moveLeft();
       } else if (event.keyCode === 39) {
@@ -152,17 +161,39 @@ export default class Game extends Vue {
     return (this.businessPoints / 10) * 100;
   }
 
-  // chooseSide(event) {
-  //   const { clientX, clientY } = event;
-  //   const { clientHeight, clientWidth } = this.$el;
-  //   if (clientY > (clientHeight / 2)) {
-  //     console.log('bottom');
-  //   } else if (clientX < (clientWidth / 2)) {
-  //     console.log('left');
-  //   } else {
-  //     console.log('right');
-  //   }
-  // }
+  getRandomCircle(circle: object) {
+    let categoryLetter;
+    let categoryMax;
+    switch (circle.category) {
+      case 0:
+        categoryLetter = 'D';
+        categoryMax = 8;
+        break;
+      case 1:
+        categoryLetter = 'OCD';
+        categoryMax = 34;
+        break;
+      case 2:
+        categoryLetter = 'T';
+        categoryMax = 6;
+        break;
+      default:
+        alert('Ups, nekaj je šlo narobe.');
+    }
+
+    const newCircle = { ...circle };
+    console.log(this.leftPadding);
+    return {
+      ...newCircle,
+      fileName: `${categoryLetter}${Math.floor(Math.random() * categoryMax) + 1}`,
+      shake: false,
+    };
+  }
+
+  generateGame() {
+    console.log(this.businessPoints);
+    return CIRCLES.map((circle) => ({ ...this.getRandomCircle(circle) }));
+  }
 
   restartGame() {
     window.clearInterval(this.gameLoop);
@@ -202,25 +233,27 @@ export default class Game extends Vue {
   }
 
   moveCircles() {
-    this.circleTop += 40;
-    const circles = this.$el.getElementsByClassName('circle');
-    const buckets = this.$el.getElementsByClassName('bucket');
-    buckets.forEach((bucket, bucketIndex) => {
-      circles.forEach((circle, circleIndex) => {
-        const rect1 = bucket.getBoundingClientRect();
-        const rect2 = circle.getBoundingClientRect();
+    if (!this.pauseGame) {
+      this.circleTop += 40;
+      const circles = this.$el.getElementsByClassName('circle');
+      const buckets = this.$el.getElementsByClassName('bucket');
+      buckets.forEach((bucket, bucketIndex) => {
+        circles.forEach((circle, circleIndex) => {
+          const rect1 = bucket.getBoundingClientRect();
+          const rect2 = circle.getBoundingClientRect();
 
-        const overlap = !(rect1.right < rect2.left - 20
-          || rect1.left > rect2.right - 20
-          || rect1.bottom < rect2.top - 20
-          || rect1.top > rect2.bottom - 20);
+          const overlap = !(rect1.right < rect2.left - 20
+            || rect1.left > rect2.right - 20
+            || rect1.bottom < rect2.top - 20
+            || rect1.top > rect2.bottom - 20);
 
-        if (overlap) {
-          this.overlaps.push(`${bucketIndex}${circleIndex}`);
-          this.resolveOverlaps();
-        }
+          if (overlap) {
+            this.overlaps.push(`${bucketIndex}${circleIndex}`);
+            this.resolveOverlaps();
+          }
+        });
       });
-    });
+    }
   }
 
   resolveOverlaps() {
@@ -228,8 +261,8 @@ export default class Game extends Vue {
       const bucketIndex = parseInt(overlap.substring(0, 1), 10);
       const circleIndex = parseInt(overlap.substring(1, 2), 10);
       const newCircle = { ...this.circles[circleIndex] };
-      newCircle.top -= 100000;
-      console.log(bucketIndex, circleIndex, newCircle);
+      newCircle.top -= 4320;
+      this.getRandomCircle(newCircle);
       this.circles.splice(circleIndex, 1, newCircle);
 
       if (newCircle.category === bucketIndex) {
@@ -257,11 +290,19 @@ export default class Game extends Vue {
           this.gameOver();
         }
       } else {
+        // shake the buckets
+        this.shakeBuckets = true;
+        this.pauseGame = true;
+        window.setTimeout(() => {
+          this.shakeBuckets = false;
+          this.pauseGame = false;
+        }, 2000);
+
         // lose life
         this.lives -= 1;
 
-        // at 0 lives the game is over
-        if (this.lives === 0) {
+        // at -1 lives the game is over
+        if (this.lives === -1) {
           this.gameOver();
         }
       }
@@ -360,6 +401,8 @@ export default class Game extends Vue {
     position: absolute;
     top: 0;
     left: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
 
     color: #ffffff;
     font-size: 16px;
@@ -371,6 +414,10 @@ export default class Game extends Vue {
     animation-name: spin;
     animation-duration: 4s;
     animation-iteration-count: infinite;
+
+    &.shake {
+      animation: shake 1.5s;
+    }
   }
 
   .buckets {
@@ -462,6 +509,10 @@ export default class Game extends Vue {
           margin-top: -20px;
         }
       }
+
+      &.shake {
+        animation: shake 1.5s;
+      }
     }
   }
 }
@@ -473,5 +524,19 @@ export default class Game extends Vue {
   to {
     transform:rotate(360deg);
   }
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 </style>

@@ -14,7 +14,8 @@
       Vabljen_a si, da s pomočjo naše kratke interaktivne igrice malo bolje spoznaš delovanje
       organizacij civilne družbe in njihovo vlogo pri razvoju družbe.
     </p>
-    <router-link to="/game" class="button">ZAČNI IGRO!</router-link>
+    <router-link v-if="wideEnough" to="/game" class="button">ZAČNI IGRO!</router-link>
+    <h1 v-else>Igro lahko igraš samo na velikih zaslonih s tipkovnico. :(</h1>
   </div>
 </template>
 
@@ -27,5 +28,21 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
     HelloWorld,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  private wideEnough: boolean;
+
+  constructor() {
+    super();
+    this.wideEnough = window.innerWidth > 1100;
+  }
+}
 </script>
+
+<style lang="scss">
+@media (max-width: 1100px) {
+  p {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+</style>
