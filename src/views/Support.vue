@@ -48,7 +48,7 @@
         </svg>
       </a>
     </div>
-    <router-link to="/" class="button support">NAMENI DOHODNINO</router-link>
+    <a target="_blank" href="https://edavki.durs.si/EdavkiPortal/OpenPortal/CommonPages/Opdynp/PageD.aspx?category=namenitev_dela_dohodnine_fo" class="button support">NAMENI DOHODNINO</a>
   </div>
 </template>
 
