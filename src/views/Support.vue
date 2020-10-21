@@ -22,7 +22,7 @@
     </p>
     <div class="button share">
       <span>DELI S PRIJATELJI</span>
-      <a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fdjnd.si%2Fkatalizatorji%2F"
+      <a :href="`https://twitter.com/intent/tweet?text=${twitterText}`"
         class="btn btn-social js-twitter myhover"
         target="_blank"
       >
@@ -37,7 +37,7 @@
           </path>
         </svg>
       </a>
-      <a href="https://www.facebook.com/dialog/feed?app_id=301375193309601&amp;redirect_uri=https%3A%2F%2Fdjnd.si%2Fkatalizatorji&amp;link=https%3A%2F%2Fdjnd.si%2Fkatalizatorji&amp;ref=responsive"
+      <a :href="facebookLink"
         class="btn btn-social js-facebook myhover">
         <svg width="35" height="35" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -56,7 +56,21 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Support extends Vue {}
+export default class Support extends Vue {
+  get twitterText() {
+    console.log(this.$router.currentRoute);
+    return encodeURIComponent(
+      'Ali veš, kaj vse počnejo organizacije civilne družbe?\nPreveri svoje znanje in se nauči še kaj novega v naši interaktivni spletni igri! https://www.druzbenespremembe.org/igra/',
+    );
+  }
+
+  get facebookLink() {
+    console.log(this.$router.currentRoute);
+    const appId = '123123123';
+    const url = 'https://www.druzbenespremembe.org/igra/';
+    return `https://www.facebook.com/dialog/feed?app_id=${appId}&redirect_uri=${url}&link=${url}&ref=responsive`;
+  }
+}
 </script>
 
 <style lang="scss">

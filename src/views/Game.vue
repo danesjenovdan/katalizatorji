@@ -301,8 +301,8 @@ export default class Game extends Vue {
           this.shakeBuckets = false;
           this.pauseGame = false;
 
-          // at -1 lives the game is over
-          if (this.lives === -1) {
+          // at 0 lives the game is over
+          if (this.lives === 0) {
             this.gameOver();
           }
         }, 2000);
