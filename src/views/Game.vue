@@ -232,6 +232,13 @@ export default class Game extends Vue {
     this.$router.push('/game-over');
   }
 
+  gameLost() {
+    this.overlaps = [];
+    this.circles = CIRCLES;
+    clearInterval(this.gameLoop);
+    this.$router.push('/game-lost');
+  }
+
   moveCircles() {
     if (!this.pauseGame) {
       this.circleTop += 40;
@@ -303,7 +310,7 @@ export default class Game extends Vue {
 
           // at 0 lives the game is over
           if (this.lives === 0) {
-            this.gameOver();
+            this.gameLost();
           }
         }, 2000);
 
