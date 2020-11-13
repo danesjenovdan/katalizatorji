@@ -1,5 +1,9 @@
 <template>
   <div class="home">
+    <div class="logo-header">
+      <img src="../assets/ESS.png">
+      <img src="../assets/ministrstvo-logo.png">
+    </div>
     <img src="../assets/logo.png">
     <h1></h1>
     <p>
