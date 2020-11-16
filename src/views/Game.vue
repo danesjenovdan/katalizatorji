@@ -16,7 +16,11 @@
           :class="['heart', { empty: lives < heart }]"
           ></div>
       </div>
-      <img src="../assets/logo.png">
+      <div class="logos">
+        <a href="https://www.eu-skladi.si/" target="_blank"><img src="../assets/ESS.png"></a>
+        <img src="../assets/logo.png">
+        <img src="../assets/ministrstvo-logo.png">
+      </div>
       <div class="points">{{ points }}</div>
     </div>
     <div
@@ -370,15 +374,28 @@ export default class Game extends Vue {
       }
     }
 
-    img {
+    .logos {
       display: block;
-      width: 121px;
+      width: 600px;
       height: 78px;
       margin-top: 15px;
 
       position: absolute;
       left: 50%;
-      margin-left: -60px;
+      margin-left: -300px;
+
+      img,
+      a img {
+        max-height: 100%;
+        width: auto;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 28px;
+
+        &:nth-child(3) {
+          margin-bottom: 48px;
+        }
+      }
     }
 
     .points {

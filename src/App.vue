@@ -120,14 +120,15 @@ body {
 .logo-header {
   width: 100%;
   height: 80px;
-  img {
+  img,
+  a img {
     max-height: 100%;
     width: auto;
     margin-left: 10px;
     margin-right: 10px;
 
     &:nth-child(2) {
-      margin-bottom: 34px;
+      margin-bottom: 28px;
     }
   }
 }

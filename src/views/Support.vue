@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="logo-header">
-      <img src="../assets/ESS.png">
+      <a href="https://www.eu-skladi.si/" target="_blank"><img src="../assets/ESS.png"></a>
       <img src="../assets/ministrstvo-logo.png">
     </div>
     <img src="../assets/logo.png">
